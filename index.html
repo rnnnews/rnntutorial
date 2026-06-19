@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как скачать модифицированные приложения на iOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Подключаем шрифт Inter для чистой разметки -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* верхний бар */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            z-index: 1000;
+        }
+
+        /* три полоски меню */
+        .burger-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 20px;
+            height: 14px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .burger-line {
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            border-radius: 1px;
+        }
+
+        /* сборное лого */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+        }
+
+        .logo-rnn {
+            font-style: italic;
+            font-weight: 300; /* тонкий */
+        }
+
+        .logo-x {
+            font-weight: 300; /* тонкое х */
+            color: #666;
+        }
+
+        .logo-modi {
+            font-weight: 700; /* жирный */
+        }
+
+        /* тонкая перегородка под баром */
+        .divider {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #e5e5e5;
+            z-index: 1000;
+        }
+
+        /* контент с выравниванием по левому краю */
+        .main-content {
+            margin-top: 61px;
+            padding: 40px 24px;
+            max-width: 800px;
+            width: 100%;
+            text-align: left;
+        }
+
+        /* главный заголовок */
+        .main-title {
+            font-weight: 600; /* средне-толстый */
+            font-size: 28px;
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+
+        /* стрелочки вниз */
+        .arrow-down {
+            font-size: 24px;
+            color: #0376ff;
+            margin-bottom: 24px;
+        }
+
+        /* обычный/тонкий текст для шагов */
+        .step-text {
+            font-weight: 400; /* обычный */
+            font-size: 16px;
+            line-height: 1.6;
+            color: #111;
+            margin-bottom: 32px; /* отступ в две строки между блоками */
+        }
+
+        /* стиль для ссылок */
+        .step-text a {
+            color: #0376ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .step-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="burger-menu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+        <div class="logo-container">
+            <span class="logo-rnn">RNN</span>
+            <span class="logo-x">x</span>
+            <span class="logo-modi">Modi Apps</span>
+        </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <main class="main-content">
+        <h1 class="main-title">Как скачать модифицированные приложения на iOS?</h1>
+        <div class="arrow-down">↓</div>
+
+        <p class="step-text">
+            Для установки сторонних приложений вам понадобиться ПК на: Windows 10 и выше, или MacOS с версией Catalina или выше. (Важно, это обязательный этап)
+        </p>
+        
+        <div class="arrow-down">↓</div>
+
+        <p class="step-text">
+            2. Вам нужен будет кабель USB 3.0 > Lightning или USB-C > USB-C в зависимости от портов на Вашем ПК.
+        </p>
+
+        <p class="step-text">
+            3. Подключаете Ваш iPhone, а затем, вбив в поисковике Altstore скачиваете Altserver с их сайта.
+        </p>
+
+        <p class="step-text">
+            4. После скачивания, запустите приложение на ПК, дождитесь установки (А также обязательно скачайте iCloud). В трее появится значок AltStore, выберите ваш телефон (наведите на него) и нажмите что-то вроде *Скачать AltStore на это устройство*
+        </p>
+
+        <p class="step-text">
+            И так, за эти 4 шага вы установили AltStore, подробный туториал и установку приложений вы можете посмотреть в YouTube по ссылке <a href="https://youtu.be/181Vj2gKaSY?is=BIdNtt_3GJtSqtGT" target="_blank">https://youtu.be/181Vj2gKaSY?is=BIdNtt_3GJtSqtGT</a>
+        </p>
+    </main>
+
+</body>
+</html>
