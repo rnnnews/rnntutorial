@@ -42,13 +42,25 @@
             height: 14px;
             cursor: pointer;
             margin-right: 20px;
+            z-index: 1001;
         }
         .burger-line {
             width: 100%;
             height: 2px;
             background-color: #000;
             border-radius: 1px;
+            transition: all 0.3s ease;
         }
+        .burger-menu.open .burger-line:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .burger-menu.open .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .burger-menu.open .burger-line:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
         .logo-container {
             display: flex;
             align-items: center;
@@ -76,6 +88,71 @@
             background-color: rgba(0, 0, 0, 0.08);
             z-index: 1000;
         }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 998;
+        }
+        .menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-drawer {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 999;
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
+            transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 80px 24px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .side-drawer.open {
+            left: 0;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .menu-item {
+            color: #000000;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f7;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            color: #0376ff;
+        }
+
+        .menu-footer {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #8e8e93;
+            font-weight: 400;
+            border-top: 1px solid #e5e5e5;
+            padding-top: 16px;
+        }
+
         .main-content {
             margin-top: 60px;
             padding: 40px 24px;
@@ -189,7 +266,7 @@
 <body>
 
     <header class="top-bar">
-        <div class="burger-menu">
+        <div class="burger-menu" id="burgerMenu">
             <div class="burger-line"></div>
             <div class="burger-line"></div>
             <div class="burger-line"></div>
@@ -202,6 +279,20 @@
     </header>
 
     <div class="divider"></div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <nav class="side-drawer" id="sideDrawer">
+        <div class="menu-links">
+            <div class="menu-item" id="geoNewsBtn">Новости</div>
+            <a href="#" class="menu-item">Tech-Новости</a>
+            <a href="#" class="menu-item">Modi Эксклюзив</a>
+            <a href="#" class="menu-item">FAQ</a>
+        </div>
+        <div class="menu-footer">
+            Copyright © 2026 RNN Inc. All rights reserved. Modi, the Modi logo and Modi Apps are registered trademarks of Modi Corporation in the U.S. and other countries.
+        </div>
+    </nav>
 
     <main class="main-content">
         <h1 class="main-title">Как скачать модифицированные приложения на iOS?</h1>
@@ -250,5 +341,54 @@
         </div>
     </main>
 
+    <script>
+        const burgerMenu = document.getElementById('burgerMenu');
+        const sideDrawer = document.getElementById('sideDrawer');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const geoNewsBtn = document.getElementById('geoNewsBtn');
+
+        function toggleMenu() {
+            burgerMenu.classList.toggle('open');
+            sideDrawer.classList.toggle('open');
+            menuOverlay.classList.toggle('open');
+        }
+
+        burgerMenu.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Логика умного гео-редиректа для кнопки Новости
+        geoNewsBtn.addEventListener('click', () => {
+            // Чтобы юзер видел, что кнопка нажалась, пока идет запрос
+            geoNewsBtn.textContent = 'Загрузка новостей...';
+            
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const country = data.country_code; // Получаем код страны (RU, KZ, BY и т.д.)
+                    let newsUrl = 'https://news.google.com'; // Дефолт, если страна другая
+
+                    if (country === 'RU') {
+                        newsUrl = 'https://www.rbc.ru';
+                    } else if (country === 'KZ') {
+                        newsUrl = 'https://tengrinews.kz';
+                    } else if (country === 'BY') {
+                        newsUrl = 'https://www.onliner.by';
+                    } else if (country === 'UA') {
+                        newsUrl = 'https://www.unian.net';
+                    }
+
+                    // Открываем в новой вкладке, чтоб твой сайт не закрывался
+                    window.open(newsUrl, '_blank');
+                    geoNewsBtn.textContent = 'Новости';
+                    toggleMenu();
+                })
+                .catch(() => {
+                    // Если API упало или заблокано, просто открываем гугл новости
+                    window.open('https://news.google.com', '_blank');
+                    geoNewsBtn.textContent = 'Новости';
+                    toggleMenu();
+                });
+        });
+    </script>
 </body>
 </html>
