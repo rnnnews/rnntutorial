@@ -14,6 +14,10 @@
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
+            /* вот эта магия убирает тупой синий квадрат при тапе на мобилках */
+            -webkit-tap-highlight-color: transparent;
+            /* убирает синюю рамку фокуса на компах */
+            outline: none;
         }
         body {
             background-color: #ffffff;
@@ -323,7 +327,7 @@
             <div class="step-card">
                 <div class="step-node"></div>
                 <p class="step-text">
-                    4. После скачивания, запустите приложение на ПК, дождитесь установки (А также обязательно скачайте iCloud). В трее появится значок AltStore, выберите ваш телефон (наведите на него) и нажмите что-то вроде *Скачать AltStore на это устройство*
+                    4. После скачивания, запустите приложение на ПК, дождитесь установки (А также обязательно скачайте iCloud). В трее появится значок AltStore, выберите ваш телефон (наведите на него) and нажмите что-то вроде *Скачать AltStore на это устройство*
                 </p>
             </div>
         </div>
@@ -356,16 +360,14 @@
         burgerMenu.addEventListener('click', toggleMenu);
         menuOverlay.addEventListener('click', toggleMenu);
 
-        // Логика умного гео-редиректа для кнопки Новости
         geoNewsBtn.addEventListener('click', () => {
-            // Чтобы юзер видел, что кнопка нажалась, пока идет запрос
             geoNewsBtn.textContent = 'Загрузка новостей...';
             
             fetch('https://ipapi.co/json/')
                 .then(response => response.json())
                 .then(data => {
-                    const country = data.country_code; // Получаем код страны (RU, KZ, BY и т.д.)
-                    let newsUrl = 'https://news.google.com'; // Дефолт, если страна другая
+                    const country = data.country_code;
+                    let newsUrl = 'https://news.google.com';
 
                     if (country === 'RU') {
                         newsUrl = 'https://www.rbc.ru';
@@ -377,13 +379,11 @@
                         newsUrl = 'https://www.unian.net';
                     }
 
-                    // Открываем в новой вкладке, чтоб твой сайт не закрывался
                     window.open(newsUrl, '_blank');
                     geoNewsBtn.textContent = 'Новости';
                     toggleMenu();
                 })
                 .catch(() => {
-                    // Если API упало или заблокано, просто открываем гугл новости
                     window.open('https://news.google.com', '_blank');
                     geoNewsBtn.textContent = 'Новости';
                     toggleMenu();
